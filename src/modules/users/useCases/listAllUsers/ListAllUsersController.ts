@@ -8,14 +8,15 @@ class ListAllUsersController {
 
   handle(request: Request, response: Response): Response {
 
-    const { user } = request.headers
-    const listUsers = this.listAllUsersUseCase.execute({ user_id: user[0] })
-    if (listUsers) {
-      return response.json(listUsers)
-    }
-    return response.status(400).send({ message: 'User unauthorized' })
+    try {
+      const { user_id } = <{ user_id: string }>request.headers;
 
+      const users = this.listAllUsersUseCase.execute({ user_id });
+
+      return response.json(users)
+    } catch (error) {
+      response.status(400).json({ error: error.message });
+    }
   }
 }
-
 export { ListAllUsersController };

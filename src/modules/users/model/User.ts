@@ -15,11 +15,10 @@ class User {
   updated_at: Date;
 
   constructor() {
+    this.admin = false;
+
     if (!this.id || this.id === undefined) {
       this.id = uuidV4();
-    }
-    if (!this.admin || this.admin === undefined) {
-      this.admin = false;
     }
   }
 }
